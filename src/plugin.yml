@@ -1,0 +1,9 @@
+name: SuperPlacement
+version: 1.0.0
+main: com.minederp.superPlacement.SuperPlacement
+authors: [ dested]
+website: minederp.com
+commands:
+  animation:
+    description: (CreateAnimation[name])(ModifyAnimation[name]->CloseAnimation <(AssignFrame|ModifyFrame[index]|EndModify[index])>)
+    
