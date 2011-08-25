@@ -6,4 +6,5 @@ website: minederp.com
 commands:
   animation:
     description: (CreateAnimation[name])(ModifyAnimation[name]->CloseAnimation <(AssignFrame|ModifyFrame[index]|EndModify[index])>)
-    
+  a:
+    description: (CreateAnimation[name])(ModifyAnimation[name]->CloseAnimation <(AssignFrame|ModifyFrame[index]|EndModify[index])>)

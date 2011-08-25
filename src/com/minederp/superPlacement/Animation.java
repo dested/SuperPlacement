@@ -6,7 +6,7 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
- 
+
 import com.minederp.superPlacement.util.BlockReprintItem;
 import com.minederp.superPlacement.util.BlockReprinter;
 
@@ -52,27 +52,31 @@ public class Animation {
 
 		loc.getBlock().setTypeId(0);
 
-		AnimationFrame currentFrame = Frames
-				.get(CurrentModifyingFrameIndex);
+		AnimationFrame currentFrame = Frames.get(CurrentModifyingFrameIndex);
 
 		currentFrame.Pieces.add(loc);
 		currentFrame.Datas.add(data);
 		currentFrame.Types.add(type);
 
-		BlockReprinter.addBlockForReprint(new BlockReprintItem(loc
-				.getWorld(), loc.getBlockX(), loc.getBlockY(), loc
-				.getBlockZ(), type, data, AnimationName));
+		BlockReprinter.addBlockForReprint(new BlockReprintItem(loc.getWorld(),
+				loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), type, data,
+				AnimationName));
 
 		loc.getBlock().setTypeIdAndData(type, data, false);
 
 	}
 
+	public void AddFrame(Location location) {
+		Frames.add(new AnimationFrame(location, this));
+	}
+
+	public boolean WaitingToAddFrame=false; 
+	
 	public void RemoveBlock(Location loc) {
 
 		loc.getBlock().setTypeId(0);
 
-		AnimationFrame currentFrame = Frames
-				.get(CurrentModifyingFrameIndex);
+		AnimationFrame currentFrame = Frames.get(CurrentModifyingFrameIndex);
 
 		int ind = currentFrame.Pieces.indexOf(CurrentModifyingFrameIndex);
 
@@ -92,4 +96,6 @@ public class Animation {
 	public int CurrentFrameIndex = -1;
 	public int CurrentModifyingFrameIndex = -1;
 	public String AnimationName;
+	public Player CurrentEditor;
+
 }

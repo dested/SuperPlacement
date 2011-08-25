@@ -1,5 +1,6 @@
 package com.minederp.superPlacement.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -41,12 +42,26 @@ public class animation implements CommandExecutor {
 			return false;
 
 		if (args.length > 0) {
-
-			if (argEquals(args[1], "CreateAnimation")) {
-				plugin.manager.createAnimation((Player) cs, args[0]);
+			//(CreateAnimation[name])(ModifyAnimation[name]->CloseAnimation <(AssignFrame|ModifyFrame[index]|EndModify[index])>)
+			
+			
+			if (argEquals(args[0], "CreateAnimation")) {
+				if(args.length==2)
+					plugin.manager.createAnimation((Player) cs, args[1]);
+				else
+					cs.sendMessage(ChatColor.RED+ "   Missing name");
 			}
-			if (argEquals(args[1], "ModifyAnimation")) {
-				//plugin.manager.((Player) cs, args[0]);
+			if (argEquals(args[0], "ModifyAnimation")) {
+				if(args.length==2)
+					plugin.manager.modifyAnimation((Player) cs, args[1]);
+				else
+					cs.sendMessage(ChatColor.RED+ "   Missing name");
+			}
+			if (argEquals(args[0], "ExitAnimation")) {
+				plugin.manager.exitAnimation((Player) cs);
+			}
+			if (argEquals(args[0], "AssignFrame")) {
+				plugin.manager.assignFrame((Player) cs);
 			}
 		}
 

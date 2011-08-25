@@ -1,9 +1,9 @@
- 
 package com.minederp.superPlacement.listeners;
 
- 
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockListener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 
@@ -17,10 +17,12 @@ public class MCBlockListener extends BlockListener {
 		this.main = main;
 	}
 
-	public void onBlockDamage(BlockDamageEvent event) {
+	public void onBlockBreak(BlockBreakEvent event) {
 
-	}
+		event.setCancelled(main.manager.blockBreak(event.getPlayer(),
+				event.getBlock()));
 
+	} 
 	public void onBlockRedstoneChange(BlockRedstoneEvent event) {
 
 		main.manager.sendCurrent(event.getBlock(), event.getNewCurrent() > 0);
@@ -31,4 +33,7 @@ public class MCBlockListener extends BlockListener {
 
 	}
 
+	public void onBlockPlace(BlockPlaceEvent event) {
+		main.manager.blockPlace(event.getPlayer(), event.getBlock());
+	}
 }

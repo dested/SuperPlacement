@@ -23,8 +23,6 @@ public class SuperPlacement extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		MC.load(this);
-
-		Conf.load(this, "config");
 		try {
 			mysql.connectDatabase();
 		} catch (Exception e) {
@@ -33,13 +31,16 @@ public class SuperPlacement extends JavaPlugin {
 		}
 
 		inventoryStasher = new InventoryStasher(this);
+		manager= new TrackedBlockManager();
 
-		getCommand("animation").setExecutor(new animation(this));
+		animation ani;
+		getCommand("animation").setExecutor(ani=new animation(this));
+		getCommand("a").setExecutor(ani);
 
 		MCPlayerListener playerListener = new MCPlayerListener(this);
 		MC.registerEvent(Type.PLAYER_MOVE, playerListener, Priority.Highest);
-		MC.registerEvent(Type.PLAYER_COMMAND_PREPROCESS, playerListener,
-				Priority.Lowest);
+		MC.registerEvent(Type.PLAYER_COMMAND_PREPROCESS, playerListener,Priority.Lowest);
+		MC.registerEvent(Type.PLAYER_INTERACT, playerListener,Priority.Lowest);
 
 		MC.registerEvent(Type.PLAYER_JOIN, playerListener, Priority.Lowest);
 		MC.registerEvent(Type.PLAYER_QUIT, playerListener, Priority.Lowest);
@@ -49,7 +50,8 @@ public class SuperPlacement extends JavaPlugin {
 
 		MCBlockListener blockListener = new MCBlockListener(this);
 		MC.registerEvent(Type.BLOCK_SPREAD, blockListener, Priority.Highest);
-		MC.registerEvent(Type.BLOCK_DAMAGE, blockListener, Priority.Highest);
+		MC.registerEvent(Type.BLOCK_PLACE, blockListener, Priority.Highest);
+		MC.registerEvent(Type.BLOCK_BREAK, blockListener, Priority.Highest);
 		MC.registerEvent(Type.REDSTONE_CHANGE, blockListener, Priority.Highest);
 
 		MC.log("Enabled");
